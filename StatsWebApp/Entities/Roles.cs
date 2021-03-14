@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace StatsWebApp.Entities
 {
-    public class AppUser
+    public class Roles
     {
         [Key]
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
-        public string FullName { get; set; }
+        public int RoleId { get; set; }
+        public string Role { get; set; }
         public bool IsDeleted { get; set; }
         public ICollection<UserRoles> UserRoles { get; set; }
     }

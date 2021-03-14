@@ -14,5 +14,7 @@ namespace StatsWebApp.Data
         }
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<UserRoles> UserRoles { get; set; }
     }
 }

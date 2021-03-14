@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StatsWebApp.Data;
 
 namespace StatsWebApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210309171021_fieldAdded")]
+    partial class fieldAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,12 +87,15 @@ namespace StatsWebApp.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("RolesRoleId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("UserRoleId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("RolesRoleId");
 
                     b.HasIndex("UserId");
 
@@ -99,11 +104,9 @@ namespace StatsWebApp.Migrations
 
             modelBuilder.Entity("StatsWebApp.Entities.UserRoles", b =>
                 {
-                    b.HasOne("StatsWebApp.Entities.Roles", "Role")
+                    b.HasOne("StatsWebApp.Entities.Roles", "Roles")
                         .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RolesRoleId");
 
                     b.HasOne("StatsWebApp.Entities.AppUser", "User")
                         .WithMany("UserRoles")
@@ -111,7 +114,7 @@ namespace StatsWebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    b.Navigation("Roles");
 
                     b.Navigation("User");
                 });
