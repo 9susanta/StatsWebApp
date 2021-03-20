@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StatsWebApp.Data;
 
 namespace StatsWebApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210320092614_AddedAppDataEntity")]
+    partial class AddedAppDataEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,8 +46,6 @@ namespace StatsWebApp.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("subCategoryId");
 
                     b.ToTable("AppData");
                 });
@@ -153,17 +153,6 @@ namespace StatsWebApp.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("StatsWebApp.Entities.AppData", b =>
-                {
-                    b.HasOne("StatsWebApp.Entities.SubCategory", "subCategory")
-                        .WithMany("AppData")
-                        .HasForeignKey("subCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("subCategory");
-                });
-
             modelBuilder.Entity("StatsWebApp.Entities.SubCategory", b =>
                 {
                     b.HasOne("StatsWebApp.Entities.Category", "Category")
@@ -207,11 +196,6 @@ namespace StatsWebApp.Migrations
             modelBuilder.Entity("StatsWebApp.Entities.Roles", b =>
                 {
                     b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("StatsWebApp.Entities.SubCategory", b =>
-                {
-                    b.Navigation("AppData");
                 });
 #pragma warning restore 612, 618
         }

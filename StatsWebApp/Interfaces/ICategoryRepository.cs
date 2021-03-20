@@ -1,5 +1,6 @@
 ﻿using StatsWebApp.DTOs;
 using StatsWebApp.Entities;
+using StatsWebApp.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace StatsWebApp.Interfaces
     {
         void Save(Category category);
         void Update(Category category);
-        Task<List<CategoryDto>> GetCategories();
+        Task<PagedList<CategoryDto>> GetCategories(CategoryParam param);
         Task<Category> IsExistCategory(string category);
         Task<Category> IsExistCategorybyId(int categoryId);
     }

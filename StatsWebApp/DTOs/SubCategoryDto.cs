@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace StatsWebApp.DTOs
 {
-    public class CategoryDto
+    public class SubCategoryDto
     {
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
         [Required]
+        public string SubCategoryName { get; set; }
+        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-       
     }
 }

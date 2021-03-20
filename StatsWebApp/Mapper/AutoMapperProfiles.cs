@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using StatsWebApp.DTOs;
+using StatsWebApp.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,8 @@ namespace StatsWebApp.Mapper
     {
         public AutoMapperProfiles()
         {
-           
+            CreateMap<Category, CategoryDto>();
+            CreateMap<SubCategory,SubCategoryDto>();
         }
     }
 }

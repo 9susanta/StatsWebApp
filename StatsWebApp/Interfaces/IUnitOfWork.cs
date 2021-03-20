@@ -9,6 +9,8 @@ namespace StatsWebApp.Interfaces
     {
         IUserRepository UserRepository { get; }
         ICategoryRepository CategoryRepository { get; }
+        ISubCategoryRepository SubCategoryRepository { get; }
+        IAppDataRepository AppDataRepository { get; }
         Task<bool> Complete();
         bool HasChanges();
     }

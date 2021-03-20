@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using StatsWebApp.Data;
 using StatsWebApp.DTOs;
 using StatsWebApp.Entities;
+using StatsWebApp.Helper;
 using StatsWebApp.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,14 +16,21 @@ namespace StatsWebApp.Repository
     public class CategoryRepository: ICategoryRepository
     {
         private readonly DataContext _context;
-        public CategoryRepository(DataContext context)
+        private readonly IMapper _mapper;
+        public CategoryRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public Task<List<CategoryDto>> GetCategories()
+        public async Task<PagedList<CategoryDto>> GetCategories(CategoryParam param)
         {
-            throw new NotImplementedException();
+            var query = _context.Category.AsQueryable();
+                query = query.Where(x => x.IsDeleted == false);
+
+            return await PagedList<CategoryDto>.CreateAsync(query.ProjectTo<CategoryDto>(_mapper
+                .ConfigurationProvider).AsNoTracking(),
+                param.PageNumber, param.PageSize);
         }
 
         public void Save(Category category)

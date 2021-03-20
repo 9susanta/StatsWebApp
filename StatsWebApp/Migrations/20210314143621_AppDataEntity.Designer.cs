@@ -2,53 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StatsWebApp.Data;
 
 namespace StatsWebApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210314143621_AppDataEntity")]
+    partial class AppDataEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.1");
-
-            modelBuilder.Entity("StatsWebApp.Entities.AppData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("excelPath")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("jsonData")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("metaData")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("subCategoryId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("subCategoryId");
-
-                    b.ToTable("AppData");
-                });
 
             modelBuilder.Entity("StatsWebApp.Entities.AppUser", b =>
                 {
@@ -153,17 +121,6 @@ namespace StatsWebApp.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("StatsWebApp.Entities.AppData", b =>
-                {
-                    b.HasOne("StatsWebApp.Entities.SubCategory", "subCategory")
-                        .WithMany("AppData")
-                        .HasForeignKey("subCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("subCategory");
-                });
-
             modelBuilder.Entity("StatsWebApp.Entities.SubCategory", b =>
                 {
                     b.HasOne("StatsWebApp.Entities.Category", "Category")
@@ -207,11 +164,6 @@ namespace StatsWebApp.Migrations
             modelBuilder.Entity("StatsWebApp.Entities.Roles", b =>
                 {
                     b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("StatsWebApp.Entities.SubCategory", b =>
-                {
-                    b.Navigation("AppData");
                 });
 #pragma warning restore 612, 618
         }
